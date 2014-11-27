@@ -25,7 +25,7 @@ public class ClientBackend implements Runnable {
     
     public ClientBackend() {
         try {
-            clientSocket = new Socket("localhost", 3013);
+            clientSocket = new Socket("localhost", 3030);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -34,8 +34,8 @@ public class ClientBackend implements Runnable {
     @Override
     public void run() {
         
-        if (clientSocket == null)
-            return;
+        //if (clientSocket == null)
+            //return;
         try {
             // Output stream must be opened first
             output = new ObjectOutputStream(clientSocket.getOutputStream());

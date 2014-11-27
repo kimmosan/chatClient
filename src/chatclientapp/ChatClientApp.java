@@ -29,10 +29,12 @@ public class ChatClientApp extends Application {
         Thread backThread = new Thread(backend);
         backThread.setDaemon(true);
         backThread.start();
+       
         ChatMessage chatM = new ChatMessage();
         chatM.setChatMessage("Moro");
+         stage.show();
         backend.sendMessage(chatM);
-        stage.show();
+        
     }
 
     /**
