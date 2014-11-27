@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 //import java.io.OutputStream;
 import java.net.Socket;
+import javafx.application.Platform;
 import message.ChatMessage;
 
 /**
@@ -21,21 +22,23 @@ public class ClientBackend implements Runnable {
     private Socket clientSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
+    private FXMLDocumentController controller;
     //private OutputStream out;
     
-    public ClientBackend() {
+    public ClientBackend(FXMLDocumentController controller) {
         try {
             clientSocket = new Socket("localhost", 3030);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        this.controller = controller;
     }
     
     @Override
     public void run() {
         
-        //if (clientSocket == null)
-            //return;
+        if (clientSocket == null)
+            return;
         try {
             // Output stream must be opened first
             output = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -48,8 +51,18 @@ public class ClientBackend implements Runnable {
         // read and write from socket until user closes the app
         while(true) {
             try {
-                ChatMessage cm = (ChatMessage)input.readObject();
-                System.out.println(cm.getChatMessage());
+                final ChatMessage cm = (ChatMessage)input.readObject();
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run() {
+                        if (cm.isUserListUpdate()) {
+                            controller.updateUserList(cm.getChatMessage());
+                        }
+                        else
+                            controller.updateTextArea(cm);
+                    }
+                });
+                
             } catch (IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
             }

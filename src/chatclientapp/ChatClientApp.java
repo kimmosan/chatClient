@@ -25,15 +25,7 @@ public class ChatClientApp extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-        ClientBackend backend = new ClientBackend();
-        Thread backThread = new Thread(backend);
-        backThread.setDaemon(true);
-        backThread.start();
-       
-        ChatMessage chatM = new ChatMessage();
-        chatM.setChatMessage("Moro");
-         stage.show();
-        backend.sendMessage(chatM);
+        stage.show();
         
     }
 

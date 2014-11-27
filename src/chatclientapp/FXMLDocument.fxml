@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatclientapp.FXMLDocumentController">
+   <bottom>
+      <HBox prefHeight="9.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="txtChatMessage" onKeyReleased="#handleTextChanged" prefHeight="25.0" prefWidth="471.0" />
+            <Button fx:id="btnSend" mnemonicParsing="false" onAction="#handleBtnSend" text="Send" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="listUsers" prefHeight="325.0" prefWidth="100.0" />
+            <CheckBox fx:id="chkPrivate" mnemonicParsing="false" text="Private" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" />
+         </padding>
+      </VBox>
+   </right>
+   <top>
+      <HBox prefHeight="22.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Username" />
+            <TextField fx:id="txtUsername" onKeyReleased="#handleUsernameFieldChanged" />
+            <Button fx:id="btnChangeUsername" mnemonicParsing="false" onAction="#handleBtnChangeUsername" text="Change" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
    <center>
-      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <WebView fx:id="chatMessageArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
